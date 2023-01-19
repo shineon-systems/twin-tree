@@ -4,21 +4,34 @@ export default class System extends EventTarget {
   // constructed once then deserialised from storage
   // so consistent uuid is hard-coded into device
   id = crypto.randomUUID()
-  connected = false
+  #connected = false
   children: System[] = []
 
   constructor(public name: string, public parent?: System) {
     super()
   }
 
-  connect(id: string | string[]) {
-    if (Array.isArray(id)) id.forEach(id => this.connect(id))
-    else if (this.id === id) this.connected = true
-    else this.children.forEach(child => child.connect(id))
+  addChild(system: System | string) {
+    if (typeof system === "string") system = new System(system, this)
+    this.children.push(system)
+    return system
+  }
+
+  get connected() {
+    return this.#connected
+  }
+
+  connect(id: string | string[]): System | System[] {
+    if (Array.isArray(id)) return id.flatMap(id => this.connect(id))
+    else if (this.id === id) {
+      this.#connected = true
+      return this
+    }
+    else return this.children.flatMap(child => child.connect(id))
   }
 
   disconnect(id: string) {
-    if (this.id === id) this.connected = false
+    if (this.id === id) this.#connected = false
     else this.children.forEach(child => child.disconnect(id))
   }
 
@@ -26,12 +39,6 @@ export default class System extends EventTarget {
     if (!this.connected) {
       throw new Error(`System with name ${this.name} and id ${this.id} is not connected`)
     }
-  }
-
-  addChild(name: string) {
-    const child = new System(name, this)
-    this.children.push(child)
-    return child
   }
 
   dispatchEvent(e: CustomEvent) {
