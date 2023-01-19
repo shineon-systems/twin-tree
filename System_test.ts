@@ -34,6 +34,10 @@ Deno.test("System", async (t) => {
     // should this be false? i.e. do we not run listeners from parents events
     // if the node that the listener was added to is not connected? 
     // seeing as listeners are intended to be control actions, probably... 
+    //
+    // thought about it more and decided that the listeners should run.
+    // it's up to the listener to check if the node to take action on is connected or not
+    // however, there should be a sendEvent method for outputting from a system that checks if it is connected
     assert(ran)
   })
 
