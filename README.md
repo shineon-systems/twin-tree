@@ -34,7 +34,7 @@ The `plant_bed` system is the root of the tree and has two sub-systems, `flower_
 
 ## Confirm system connection
 
-Each system in the tree represents a real device with sensors and actuators, etc. So before we can interact with them we must confirm we are connected to the real device. You are responsible for managing this connection state through APIs like `fetch` or `Web Serial`.
+Each system in the tree represents a real device with sensors and controls, etc. So before we can interact with them we must confirm we are connected to the real device. You are responsible for managing this connection state through APIs like `fetch` or `Web Serial`.
 
 ```
 (id) => {
