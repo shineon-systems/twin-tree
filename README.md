@@ -1,4 +1,4 @@
-# Tree Twin 🌲💠🌿
+# Twin Tree 🌲💠🌿
 
 A framework for remotely modelling and managing control systems as trees.
 
