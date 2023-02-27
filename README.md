@@ -1,6 +1,6 @@
 # Twin Tree 🌲💠🌿
 
-A framework for remotely modelling and managing control systems as trees.
+A framework for remotely modelling and managing event-based control system networks as trees.
 
 ## Construct a system tree
 
